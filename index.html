@@ -3,301 +3,368 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>premiapp_ | Premium Apps Store</title>
+    <title>premiapp_ | Solusi Aplikasi Premium Terpercaya</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --dusty-pink: #f4dada;
-            --deep-pink: #e2b4b4;
-            --accent-pink: #d4a5a5;
-            --text-color: #7d5a5a;
+            --dusty-pink: #d4a5a5;
+            --soft-pink: #f9e1e1;
+            --rose-pastel: #f4cccc;
+            --vanilla: #fffdf7;
+            --text-dark: #5d4037;
         }
+
         body {
-            font-family: 'Quicksand', sans-serif;
-            background-color: #fff5f5;
-            color: var(--text-color);
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--vanilla);
+            color: var(--text-dark);
+            background-image: radial-gradient(var(--rose-pastel) 0.8px, transparent 0.8px);
+            background-size: 24px 24px;
         }
-        .cute-shadow {
-            box-shadow: 0 10px 25px rgba(226, 180, 180, 0.3);
+
+        .font-cherry { font-family: 'Cherry Bomb One', cursive; }
+
+        /* Card Styling */
+        .marshmallow-card {
+            background: white;
+            border-radius: 35px;
+            border: 3px solid white;
+            box-shadow: 0 10px 25px rgba(212, 165, 165, 0.15);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(10px);
-            border: 2px solid var(--dusty-pink);
+
+        .marshmallow-card:hover {
+            transform: translateY(-8px) rotate(1deg);
+            border-color: var(--soft-pink);
+            box-shadow: 0 20px 40px rgba(212, 165, 165, 0.25);
         }
-        .floating {
-            animation: floating 3s ease-in-out infinite;
-        }
-        @keyframes floating {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
-        .btn-gradient {
-            background: linear-gradient(135deg, #f4dada 0%, #e2b4b4 100%);
+
+        /* Button Styling */
+        .btn-main {
+            background: linear-gradient(135deg, var(--rose-pastel), var(--dusty-pink));
+            color: white;
+            border-radius: 20px;
+            font-weight: 800;
             transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(212, 165, 165, 0.3);
         }
-        .btn-gradient:hover {
+
+        .btn-main:hover {
             transform: scale(1.05);
-            filter: brightness(0.95);
+            filter: brightness(1.05);
         }
+
+        .btn-outline {
+            border: 2px solid var(--soft-pink);
+            color: var(--dusty-pink);
+            border-radius: 20px;
+            font-weight: 800;
+            transition: all 0.3s;
+        }
+
+        .btn-outline:hover {
+            background: var(--soft-pink);
+            color: white;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .animate-float { animation: float 4s ease-in-out infinite; }
+
+        /* Notification Toast */
+        #notif-toast {
+            position: fixed;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        #notif-toast.active { top: 20px; }
+
         /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #fff5f5; }
-        ::-webkit-scrollbar-thumb { background: var(--dusty-pink); border-radius: 10px; }
+        ::-webkit-scrollbar-track { background: var(--vanilla); }
+        ::-webkit-scrollbar-thumb { background: var(--rose-pastel); border-radius: 10px; }
+
+        .search-input:focus {
+            box-shadow: 0 0 0 4px var(--soft-pink);
+        }
+
+        .cat-btn.active {
+            background: var(--soft-pink);
+            color: white;
+            border-color: var(--dusty-pink);
+        }
     </style>
 </head>
-<body class="pb-24">
+<body class="selection:bg-pink-200 selection:text-pink-900">
 
-    <!-- Header Section -->
-    <header class="pt-10 pb-6 text-center px-4">
-        <div class="inline-block p-4 rounded-full bg-white mb-4 cute-shadow floating">
-            <i class="fas fa-crown text-4xl text-[#d4a5a5]"></i>
+    <!-- Toast Notification -->
+    <div id="notif-toast" class="bg-white px-6 py-3 rounded-full shadow-2xl border-2 border-pink-100 flex items-center gap-3">
+        <div class="w-8 h-8 bg-pink-100 rounded-full flex items-center justify-center text-pink-500">
+            <i class="fas fa-heart"></i>
         </div>
-        <h1 style="font-family: 'Pacifico', cursive;" class="text-4xl text-[#d4a5a5] mb-2">premiapp_</h1>
-        <p class="text-sm tracking-widest uppercase font-bold opacity-70">Premium App • Trusted • Fast Process</p>
-        
-        <!-- Trust Badges -->
-        <div class="flex justify-center gap-4 mt-6">
-            <div class="flex items-center gap-1 bg-white px-3 py-1 rounded-full text-xs cute-shadow">
-                <i class="fas fa-check-circle text-green-400"></i> Bergaransi
-            </div>
-            <div class="flex items-center gap-1 bg-white px-3 py-1 rounded-full text-xs cute-shadow">
-                <i class="fas fa-bolt text-yellow-400"></i> Proses Cepat
-            </div>
-            <div class="flex items-center gap-1 bg-white px-3 py-1 rounded-full text-xs cute-shadow">
-                <i class="fas fa-heart text-pink-400"></i> Terpercaya
-            </div>
-        </div>
-    </header>
+        <span class="text-sm font-bold" id="notif-msg">Berhasil!</span>
+    </div>
 
-    <!-- AI Recommendation Assistant -->
-    <section class="max-w-4xl mx-auto px-4 mb-10">
-        <div class="glass-card p-6 rounded-[32px] border-2 border-dashed border-[#e2b4b4] relative overflow-hidden">
-            <div class="absolute top-0 right-0 p-4 opacity-10">
-                <i class="fas fa-sparkles text-6xl text-[#d4a5a5]"></i>
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-40 bg-white/70 backdrop-blur-xl border-b-2 border-pink-50 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <span class="font-cherry text-3xl text-pink-400 tracking-tighter">premiapp_</span>
             </div>
-            <h3 class="font-bold text-lg mb-2 flex items-center gap-2">
-                ✨ Bingung Pilih Aplikasi?
-            </h3>
-            <p class="text-sm mb-4 opacity-80">Tanya AI kami untuk rekomendasi aplikasi terbaik sesuai kebutuhanmu!</p>
-            <div class="flex gap-2">
-                <input type="text" id="aiInput" placeholder="Contoh: Aplikasi buat edit video drakor..." 
-                    class="flex-1 px-4 py-3 rounded-2xl border-none outline-none focus:ring-2 focus:ring-[#e2b4b4] text-sm glass-card">
-                <button onclick="getAIRecommendation()" id="aiBtn" class="btn-gradient px-6 py-3 rounded-2xl font-bold text-sm">
-                    ✨ Tanya
-                </button>
-            </div>
-            <div id="aiResponseContainer" class="hidden mt-4">
-                <div id="aiResponse" class="p-4 bg-white/50 rounded-2xl text-sm italic border-l-4 border-[#e2b4b4]">
-                    <!-- AI Response will appear here -->
+            
+            <div class="flex items-center gap-3">
+                <div class="relative hidden md:block">
+                    <input type="text" id="searchInput" placeholder="Cari aplikasi..." 
+                           class="search-input w-64 pl-10 pr-4 py-2 bg-pink-50 rounded-full text-sm outline-none transition-all font-semibold text-gray-600">
+                    <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-pink-300"></i>
                 </div>
-                <button id="aiOrderBtn" class="w-full mt-3 bg-green-400 text-white py-2 rounded-xl text-xs font-bold uppercase tracking-wider shadow-md hover:bg-green-500 transition-colors flex items-center justify-center gap-2">
-                    <i class="fab fa-whatsapp"></i> Order Sesuai Rekomendasi AI
+                <button onclick="toggleCart()" class="relative w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-pink-400 shadow-sm border border-pink-50">
+                    <i class="fas fa-shopping-bag text-xl"></i>
+                    <span id="cartBadge" class="absolute -top-2 -right-2 bg-pink-400 text-white text-[10px] w-6 h-6 rounded-full border-4 border-white flex items-center justify-center font-black">0</span>
                 </button>
             </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="max-w-6xl mx-auto px-6 pt-12 pb-8 text-center">
+        <div class="animate-float inline-block bg-white px-4 py-1.5 rounded-full shadow-sm border border-pink-100 mb-6">
+            <p class="text-[10px] font-black text-pink-400 uppercase tracking-[2px]">🏆 Terpercaya 1.000+ Pelanggan</p>
+        </div>
+        <h1 class="font-cherry text-4xl md:text-6xl text-gray-700 leading-tight mb-4">
+            Upgrade Hidupmu ke <br> <span class="text-pink-400">Versi Premium ✨</span>
+        </h1>
+        <p class="text-gray-400 text-sm md:text-base font-bold max-w-2xl mx-auto mb-10">
+            Dapatkan akses penuh ke aplikasi favoritmu dengan proses secepat kilat (1-5 menit). 
+            Bergaransi penuh & dijamin paling murah!
+        </p>
+
+        <!-- Kategori Filter -->
+        <div class="flex flex-wrap justify-center gap-2 mb-12" id="filterButtons">
+            <button onclick="filterContent('all', this)" class="cat-btn active px-6 py-2 bg-white rounded-full shadow-sm text-xs font-black border-2 border-white hover:border-pink-200 transition-all">Semua</button>
+            <button onclick="filterContent('streaming', this)" class="cat-btn px-6 py-2 bg-white rounded-full shadow-sm text-xs font-black border-2 border-white hover:border-pink-200 transition-all">Streaming</button>
+            <button onclick="filterContent('musik', this)" class="cat-btn px-6 py-2 bg-white rounded-full shadow-sm text-xs font-black border-2 border-white hover:border-pink-200 transition-all">Musik</button>
+            <button onclick="filterContent('kerja', this)" class="cat-btn px-6 py-2 bg-white rounded-full shadow-sm text-xs font-black border-2 border-white hover:border-pink-200 transition-all">Produktivitas</button>
         </div>
     </section>
 
-    <!-- Main Content -->
-    <main class="max-w-4xl mx-auto px-4">
-        
-        <!-- Section: Populer & Entertainment -->
-        <h2 class="text-xl font-bold mb-4 flex items-center gap-2 px-2">
-            <i class="fas fa-star text-yellow-400"></i> Streaming & Movies
-        </h2>
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-10" id="streamingGrid">
-            <!-- Items injected by JS -->
+    <!-- Main Grid -->
+    <main class="max-w-7xl mx-auto px-6 pb-20">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="productContainer">
+            <!-- Produk akan muncul di sini secara dinamis -->
         </div>
 
-        <!-- Section: Productivity & Tools -->
-        <h2 class="text-xl font-bold mb-4 flex items-center gap-2 px-2">
-            <i class="fas fa-tools text-gray-400"></i> Editing & Productivity
-        </h2>
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-10" id="productivityGrid">
-            <!-- Items injected by JS -->
-        </div>
-
-        <!-- Section: AI Section -->
-        <h2 class="text-xl font-bold mb-4 flex items-center gap-2 px-2">
-            <i class="fas fa-brain text-blue-400"></i> Artificial Intelligence
-        </h2>
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-10" id="aiGrid">
-            <!-- Items injected by JS -->
-        </div>
-
-        <!-- Section: Others (Chat) -->
-        <div class="glass-card p-6 rounded-3xl mb-10">
-            <div class="flex items-center gap-4">
-                <div class="bg-[#f4dada] p-4 rounded-2xl">
-                    <i class="fas fa-plus text-2xl text-[#d4a5a5]"></i>
-                </div>
-                <div class="flex-1">
-                    <h3 class="font-bold text-lg">Aplikasi Lainnya?</h3>
-                    <p class="text-xs opacity-70">RCTI+, Vision Sport, Duolingo, Dramabox, Youku, Lightroom, IbisPaint, Alight Motion, Oldroll, dan lainnya!</p>
-                </div>
-            </div>
-            <button onclick="chatLainnya()" class="w-full mt-4 btn-gradient py-3 rounded-2xl font-bold uppercase tracking-widest flex items-center justify-center gap-2">
-                <i class="fab fa-whatsapp"></i> Chat Admin
+        <!-- Custom Request Section -->
+        <div class="mt-20 marshmallow-card p-8 md:p-12 text-center border-dashed border-4 border-pink-100">
+            <h3 class="font-cherry text-3xl text-gray-700 mb-4">Butuh Aplikasi Lainnya? 🍭</h3>
+            <p class="text-sm text-gray-400 font-bold mb-8 max-w-lg mx-auto">
+                Tersedia ratusan aplikasi lainnya! Jika aplikasi yang kamu cari tidak ada di daftar, langsung saja request ke admin.
+            </p>
+            <button onclick="directOrder('Request Aplikasi Lain')" class="btn-main px-12 py-4 text-sm tracking-widest">
+                HUBUNGI ADMIN VIA CHAT
             </button>
         </div>
-
-        <!-- Section: Payments -->
-        <div class="text-center bg-[#f4dada] p-8 rounded-[40px] mb-10">
-            <h2 class="font-bold text-xl mb-4 italic">Metode Pembayaran</h2>
-            <div class="flex flex-wrap justify-center gap-6">
-                <div class="flex flex-col items-center">
-                    <div class="bg-white p-3 rounded-xl mb-1 cute-shadow"><i class="fas fa-qrcode text-2xl text-red-500"></i></div>
-                    <span class="text-[10px] font-bold uppercase">QRIS</span>
-                </div>
-                <div class="flex flex-col items-center">
-                    <div class="bg-white p-3 rounded-xl mb-1 cute-shadow"><i class="fas fa-wallet text-2xl text-blue-400"></i></div>
-                    <span class="text-[10px] font-bold uppercase">DANA</span>
-                </div>
-                <div class="flex flex-col items-center">
-                    <div class="bg-white p-3 rounded-xl mb-1 cute-shadow"><i class="fas fa-university text-2xl text-gray-500"></i></div>
-                    <span class="text-[10px] font-bold uppercase">Rekening</span>
-                </div>
-            </div>
-        </div>
-
     </main>
 
-    <!-- Footer / Sticky CTA -->
-    <footer class="fixed bottom-0 left-0 right-0 bg-white/80 border-t border-[#f4dada] p-3 flex justify-around items-center backdrop-blur-md z-50 shadow-lg">
-        <a href="#" class="flex flex-col items-center text-[#d4a5a5]">
-            <i class="fas fa-home"></i>
-            <span class="text-[10px]">Home</span>
-        </a>
-        <button onclick="chatLainnya()" class="bg-[#f4dada] px-6 py-3 rounded-full font-bold text-xs flex items-center gap-2 cute-shadow hover:scale-105 transition-transform">
-            <i class="fab fa-whatsapp"></i> Order Via WA
-        </button>
-        <a href="#" onclick="chatLainnya()" class="flex flex-col items-center text-gray-400">
-            <i class="fas fa-user-shield"></i>
-            <span class="text-[10px]">Garansi</span>
-        </a>
+    <!-- Footer -->
+    <footer class="bg-white pt-20 pb-10 border-t-4 border-pink-50 text-center">
+        <h2 class="font-cherry text-4xl text-pink-300 mb-2">premiapp_</h2>
+        <p class="text-[10px] font-bold text-gray-300 tracking-[5px] mb-12 uppercase">Premium Store Solution</p>
+        <p class="text-[10px] font-bold text-gray-300">© 2024 PREMIAPP_. DIBUAT DENGAN PENUH CINTA.</p>
     </footer>
 
-    <!-- Script for Logic -->
-    <script>
-        const WA_NUMBER = "6285715373432"; // Pastikan format 62 untuk WhatsApp internasional
-        const apiKey = ""; 
+    <!-- Cart Sidebar -->
+    <div id="cartOverlay" class="fixed inset-0 bg-pink-900/10 backdrop-blur-sm z-[100] hidden transition-all" onclick="toggleCart()"></div>
+    <div id="cartModal" class="fixed right-0 top-0 h-full w-full max-w-md bg-white z-[101] translate-x-full transition-transform duration-500 shadow-2xl p-8 flex flex-col">
+        <div class="flex justify-between items-center mb-8">
+            <h3 class="font-cherry text-2xl text-pink-400">Tas Belanja 🛍️</h3>
+            <button onclick="toggleCart()" class="w-10 h-10 rounded-full hover:bg-pink-50 text-gray-300 transition-colors">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <!-- Cart Items List -->
+        <div id="cartItems" class="flex-grow overflow-y-auto space-y-4 mb-8 pr-2">
+            <!-- Item keranjang akan muncul di sini -->
+        </div>
 
-        const appData = [
-            { id: 1, name: "Netflix", price: "45.000", cat: "streaming", icon: "fa-tv" },
-            { id: 2, name: "Disney+ Hotstar", price: "35.000", cat: "streaming", icon: "fa-play" },
-            { id: 3, name: "Vidio Platinum", price: "15.000", cat: "streaming", icon: "fa-film" },
-            { id: 4, name: "Prime Video", price: "15.000", cat: "streaming", icon: "fa-video" },
-            { id: 5, name: "WeTV", price: "10.000", cat: "streaming", icon: "fa-compact-disc" },
-            { id: 6, name: "Viu", price: "10.000", cat: "streaming", icon: "fa-heart" },
-            { id: 7, name: "LokLok", price: "25.000", cat: "streaming", icon: "fa-laugh-wink" },
-            { id: 8, name: "YouTube Premium", price: "15.000", cat: "streaming", icon: "fa-brands fa-youtube" },
-            { id: 9, name: "Spotify", price: "20.000", cat: "streaming", icon: "fa-brands fa-spotify" },
-            { id: 10, name: "HBO Max", price: "20.000", cat: "streaming", icon: "fa-film" },
-            { id: 11, name: "Bstation", price: "15.000", cat: "streaming", icon: "fa-dragon" },
-            { id: 12, name: "Crunchyroll", price: "20.000", cat: "streaming", icon: "fa-fire" },
-            { id: 13, name: "VSCO Pro", price: "25.000", cat: "productivity", icon: "fa-camera" },
-            { id: 14, name: "Capcut", price: "15.000", cat: "productivity", icon: "fa-cut" },
-            { id: 15, name: "PicsArt", price: "10.000", cat: "productivity", icon: "fa-paint-brush" },
-            { id: 16, name: "MS 365", price: "10.000", cat: "productivity", icon: "fa-file-word" },
-            { id: 17, name: "Scribd", price: "10.000", cat: "productivity", icon: "fa-book-open" },
-            { id: 18, name: "DazzCam", price: "25.000", cat: "productivity", icon: "fa-camera-retro" },
-            { id: 19, name: "Zoom", price: "25.000", cat: "productivity", icon: "fa-video-camera" },
-            { id: 20, name: "Canva", price: "10.000", cat: "productivity", icon: "fa-pen-nib" },
-            { id: 21, name: "Gemini AI", price: "15.000", cat: "ai", icon: "fa-robot" },
-            { id: 22, name: "Chat GPT", price: "40.000", cat: "ai", icon: "fa-comments" }
+        <!-- Checkout Footer -->
+        <div class="bg-pink-50 rounded-[30px] p-6 border border-pink-100">
+            <div class="flex justify-between items-center mb-6">
+                <span class="font-black text-gray-400 uppercase text-xs">Total Pembayaran:</span>
+                <span id="cartTotal" class="font-cherry text-2xl text-pink-400">Rp0</span>
+            </div>
+            <button onclick="checkoutCart()" class="w-full btn-main py-4 flex items-center justify-center gap-3 shadow-lg">
+                <i class="fab fa-whatsapp text-lg"></i>
+                CHECKOUT KE WHATSAPP
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const products = [
+            { id: 1, name: "Netflix Premium", price: 45000, cat: "streaming", desc: "UHD 4K + Akun Privat/Sharing", icon: "fa-solid fa-play" },
+            { id: 2, name: "Disney+ Hotstar", price: 35000, cat: "streaming", desc: "Akses Full Konten Marvel & Disney", icon: "fa-solid fa-star" },
+            { id: 3, name: "Vidio Platinum", price: 15000, cat: "streaming", desc: "Live Sports & Original Series", icon: "fa-solid fa-tv" },
+            { id: 4, name: "Prime Video", price: 15000, cat: "streaming", desc: "Eksklusif Amazon Originals", icon: "fa-solid fa-film" },
+            { id: 5, name: "WeTV Premium", price: 10000, cat: "streaming", desc: "Drama Asia Terlengkap", icon: "fa-solid fa-video" },
+            { id: 6, name: "Viu Premium", price: 10000, cat: "streaming", desc: "Drakor Terbaru Sub Indo", icon: "fa-solid fa-ticket" },
+            { id: 7, name: "YouTube Premium", price: 15000, cat: "streaming", desc: "Bebas Iklan + Background Play", icon: "fa-brands fa-youtube" },
+            { id: 8, name: "Spotify Individual", price: 20000, cat: "musik", desc: "Kualitas Audio Tinggi + Offline", icon: "fa-solid fa-music" },
+            { id: 9, name: "Capcut Pro", price: 15000, cat: "kerja", desc: "Akses Fitur Pro & No Watermark", icon: "fa-solid fa-scissors" },
+            { id: 10, name: "PicsArt Gold", price: 10000, cat: "kerja", desc: "Desain Tanpa Batas", icon: "fa-solid fa-palette" },
+            { id: 11, name: "Canva Pro Team", price: 10000, cat: "kerja", desc: "Akses Elemen & Template Pro", icon: "fa-solid fa-pen-nib" },
+            { id: 12, name: "ChatGPT Plus", price: 40000, cat: "kerja", desc: "Akses GPT-4 & Analisis Data", icon: "fa-solid fa-robot" }
         ];
 
-        let lastAIRec = ""; 
+        let cart = [];
+        const waNumber = "6285715373432";
 
-        async function fetchGemini(prompt, retries = 5) {
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
-            for (let i = 0; i < retries; i++) {
-                try {
-                    const response = await fetch(url, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            contents: [{ parts: [{ text: prompt }] }],
-                            systemInstruction: { parts: [{ text: "Anda adalah asisten belanja di toko aplikasi premium bernama premiapp_. Jawab dengan bahasa Indonesia yang ramah, santun, dan menggunakan emoji lucu. Fokus pada memberikan rekomendasi dari daftar aplikasi yang tersedia." }] }
-                        })
-                    });
-                    const data = await response.json();
-                    return data.candidates?.[0]?.content?.parts?.[0]?.text;
-                } catch (error) {
-                    if (i === retries - 1) throw error;
-                    await new Promise(res => setTimeout(res, Math.pow(2, i) * 1000));
-                }
-            }
-        }
-
-        function renderApps() {
-            const categories = ['streaming', 'productivity', 'ai'];
-            categories.forEach(cat => document.getElementById(`${cat}Grid`).innerHTML = '');
+        // Inisialisasi Tampilan Produk
+        function initProducts(items) {
+            const container = document.getElementById('productContainer');
+            container.innerHTML = '';
             
-            appData.forEach(app => {
+            items.forEach(p => {
                 const card = `
-                    <div class="glass-card p-4 rounded-3xl text-center flex flex-col justify-between hover:border-[#e2b4b4] transition-all transform hover:-translate-y-1">
-                        <div class="mb-2"><i class="fas ${app.icon} text-3xl opacity-50"></i></div>
-                        <h3 class="font-bold text-sm">${app.name}</h3>
-                        <p class="text-[#d4a5a5] font-bold text-lg">Rp ${app.price}</p>
-                        <button onclick="orderApp('${app.name}', '${app.price}')" class="mt-3 btn-gradient py-2 rounded-xl text-xs font-bold uppercase tracking-wider">Order</button>
+                    <div class="marshmallow-card p-8 flex flex-col items-center text-center">
+                        <div class="w-16 h-16 bg-pink-50 rounded-[22px] flex items-center justify-center text-pink-300 text-2xl mb-4 border border-pink-100">
+                            <i class="${p.icon}"></i>
+                        </div>
+                        <div class="flex-grow">
+                            <h4 class="font-black text-gray-700 text-sm mb-1">${p.name}</h4>
+                            <p class="text-[10px] text-gray-400 font-bold mb-4">${p.desc}</p>
+                            <p class="text-pink-400 font-black text-lg mb-6">Rp${p.price.toLocaleString('id-ID')}</p>
+                        </div>
+                        <div class="w-full grid grid-cols-2 gap-2">
+                            <button onclick="addToCart(${p.id})" class="btn-outline py-3 text-[10px]">
+                                + TAS
+                            </button>
+                            <button onclick="directOrder('${p.name}')" class="btn-main py-3 text-[10px]">
+                                ORDER
+                            </button>
+                        </div>
                     </div>
                 `;
-                document.getElementById(`${app.cat}Grid`).innerHTML += card;
+                container.innerHTML += card;
             });
         }
 
-        async function getAIRecommendation() {
-            const input = document.getElementById('aiInput').value;
-            const btn = document.getElementById('aiBtn');
-            const responseContainer = document.getElementById('aiResponseContainer');
-            const responseDiv = document.getElementById('aiResponse');
+        // Filter Kategori
+        function filterContent(cat, btn) {
+            document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
             
-            if (!input) return;
+            if (cat === 'all') initProducts(products);
+            else initProducts(products.filter(p => p.cat === cat));
+        }
 
-            btn.disabled = true;
-            btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i>`;
-            responseContainer.classList.remove('hidden');
-            responseDiv.innerHTML = "✨ AI sedang berpikir...";
+        // Tambah ke Tas
+        function addToCart(id) {
+            const item = products.find(p => p.id === id);
+            cart.push({...item, cartId: Date.now()}); // Tambah cartId unik agar bisa hapus per item
+            updateCartUI();
+            showNotif(`Nyam! ${item.name} berhasil masuk tas.`);
+        }
 
-            const prompt = `Pelanggan bertanya: "${input}". 
-            Daftar aplikasi kita: Netflix, Disney+, Vidio, Prime, WeTV, Viu, LokLok, YouTube, Spotify, HBO, Bstation, Crunchyroll, VSCO, Capcut, PicsArt, MS365, Scribd, DazzCam, Zoom, Canva, Gemini AI, Chat GPT. 
-            Berikan rekomendasi singkat.`;
+        // Update UI Keranjang
+        function updateCartUI() {
+            const list = document.getElementById('cartItems');
+            const totalDisplay = document.getElementById('cartTotal');
+            const badge = document.getElementById('cartBadge');
+            
+            list.innerHTML = '';
+            let total = 0;
+            
+            cart.forEach((item, index) => {
+                total += item.price;
+                list.innerHTML += `
+                    <div class="flex justify-between items-center bg-pink-50/50 p-4 rounded-2xl border border-white">
+                        <div class="flex items-center gap-3 text-left">
+                            <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-pink-300 text-sm shrink-0">
+                                <i class="${item.icon}"></i>
+                            </div>
+                            <div class="overflow-hidden">
+                                <p class="text-[11px] font-black truncate">${item.name}</p>
+                                <p class="text-[10px] text-pink-400 font-bold">Rp${item.price.toLocaleString('id-ID')}</p>
+                            </div>
+                        </div>
+                        <button onclick="removeFromCart(${index})" class="text-pink-200 hover:text-red-400 transition-colors ml-2 shrink-0">
+                            <i class="fas fa-times-circle"></i>
+                        </button>
+                    </div>
+                `;
+            });
 
-            try {
-                const result = await fetchGemini(prompt);
-                lastAIRec = result; 
-                responseDiv.innerHTML = `✨ <b>premiapp_ AI:</b> <br>${result}`;
-                
-                // Update tombol WhatsApp khusus AI
-                document.getElementById('aiOrderBtn').onclick = () => {
-                    const waLink = `https://wa.me/${WA_NUMBER}?text=` + encodeURIComponent(`halo, mau order dong melalui WhatsApp 085715373432\n\nSaya tanya AI: "${input}"\nAI rekomendasikan: ${lastAIRec}`);
-                    window.open(waLink, '_blank');
-                };
-            } catch (err) {
-                responseDiv.innerHTML = "Aduh, maaf ya kak, AI-nya lagi istirahat sebentar. Silakan coba lagi nanti! 🌸";
-            } finally {
-                btn.disabled = false;
-                btn.innerHTML = "✨ Tanya";
+            if (cart.length === 0) {
+                list.innerHTML = `
+                    <div class="h-full flex flex-col items-center justify-center text-center py-20 opacity-50">
+                        <i class="fas fa-shopping-basket text-4xl text-pink-100 mb-4"></i>
+                        <p class="text-xs font-bold text-gray-300 uppercase">Tas Kosong...</p>
+                    </div>
+                `;
             }
+
+            totalDisplay.innerText = `Rp${total.toLocaleString('id-ID')}`;
+            badge.innerText = cart.length;
         }
 
-        function orderApp(name, price) {
-            const waLink = `https://wa.me/${WA_NUMBER}?text=` + encodeURIComponent(`halo, mau order dong melalui WhatsApp 085715373432\n\nMau order: *${name}*\nHarga: *Rp ${price}*`);
-            window.open(waLink, '_blank');
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
         }
 
-        function chatLainnya() {
-            const waLink = `https://wa.me/${WA_NUMBER}?text=` + encodeURIComponent(`halo, mau order dong`);
-            window.open(waLink, '_blank');
+        function toggleCart() {
+            document.getElementById('cartModal').classList.toggle('translate-x-full');
+            document.getElementById('cartOverlay').classList.toggle('hidden');
         }
 
-        window.onload = () => {
-            renderApps();
+        function showNotif(msg) {
+            const toast = document.getElementById('notif-toast');
+            document.getElementById('notif-msg').innerText = msg;
+            toast.classList.add('active');
+            setTimeout(() => toast.classList.remove('active'), 3000);
         }
+
+        // WhatsApp: Order Langsung Satu Produk
+        function directOrder(name) {
+            const text = `Halo Kak! Aku mau order *${name}* melalui WhatsApp. Mohon dibantu ya! ✨`;
+            window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(text)}`, '_blank');
+        }
+
+        // WhatsApp: Checkout Banyak Produk (SESUAI REQUEST)
+        function checkoutCart() {
+            if (cart.length === 0) {
+                showNotif("Tas kamu masih kosong!");
+                return;
+            }
+
+            // Kumpulkan nama aplikasi dan hitung total
+            const appNames = cart.map(item => item.name).join(' dan ');
+            const total = cart.reduce((acc, item) => acc + item.price, 0);
+            
+            // Format Pesan (Contoh: halo kak aku mau order netflix dan vidio cantumkan total harganya)
+            const message = `Halo Kak! Aku mau order *${appNames}*. Berapa total harganya?%0A%0A*Rincian Pesanan:*%0A${cart.map(i => `- ${i.name} (Rp${i.price.toLocaleString('id-ID')})`).join('%0A')}%0A%0A*Total Pembayaran:* Rp${total.toLocaleString('id-ID')}%0A%0AMohon diproses ya Admin! ✨`;
+            
+            window.open(`https://wa.me/${waNumber}?text=${message}`, '_blank');
+        }
+
+        // Search Bar
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            const val = e.target.value.toLowerCase();
+            const filtered = products.filter(p => p.name.toLowerCase().includes(val));
+            initProducts(filtered);
+        });
+
+        window.onload = () => initProducts(products);
     </script>
 </body>
 </html>
